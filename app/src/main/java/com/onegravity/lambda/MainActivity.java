@@ -37,12 +37,42 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener( (view) -> { System.out.println(view.getId()); });
         //btn.setOnClickListener( view -> System.out.println(view.getId()) );
         //btn.setOnClickListener( System.out::println );  // 로그로 하고싶었는데 아쉽꾸만
-
-
+        // runnable, run을 하나로 묶을 수 있는 듯 하다.
         //Thread th = new Thread(() -> { System.out.println("Thread Run!"); } );
-
         //th.start();
+
+        LambdaFunc arg = calc();       // calc 가 호출되면 calc 함수에 정의된 람다식이 넘어온다.
+        // arg : num -> num * num
+        //int result = arg.square(50);
+        int result = arg.sum(10, 11);
+        System.out.println("result: " + result);
     }
+
+    public LambdaFunc calc(){
+        return (num, num2) -> num + num2;
+    }
+
+//    public LambdaFunc calc(){
+//        return num -> num * num;
+//    }
+
+//    public LambdaFunc calc(){
+//        return num -> { return num*num; };
+//    }
+
+//    public LambdaFunc calc(){
+//        return new LambdaFunc() {
+//            public int square(int num) {
+//                return num * num;
+//            }
+//        };
+//    }
+
+    interface LambdaFunc{
+        //int square(int num);
+        int sum(int value, int value2);
+    }
+
 
     // 람다언어의 사용 ex) (view) -> { System.out.println(view.getId()); }
     // 하나의 함수 instance로 작성
