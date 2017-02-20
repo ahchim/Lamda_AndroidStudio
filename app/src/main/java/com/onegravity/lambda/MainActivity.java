@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -41,6 +44,40 @@ public class MainActivity extends AppCompatActivity {
         //Thread th = new Thread(() -> { System.out.println("Thread Run!"); } );
         //th.start();
 
+        //runLambdaFunc();
+
+        Button btnLoop = (Button) findViewById(R.id.btnLoop);
+        Button btnStream = (Button) findViewById(R.id.btnStream);
+
+        String objectArray[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"};
+
+        btnLoop.setOnClickListener(
+                v -> {
+                    for(String s : objectArray) {
+                        if(s.length() == 1){
+                            System.out.println("I am Loop " + s);
+                        }
+                    }
+                }
+        );
+
+        // 헐랭 ㅠㅠㅠ 누가밖에 안돼...
+        // Stream을 빼기 위한... onClick을 쓰기 위한 람다..
+        btnStream.setOnClickListener(
+                v -> {
+                    //                          진행중 처리...
+                    Stream<String> stream = Arrays.stream(objectArray);
+
+                    // 스트림 객체 내부적으로 반복문이나 필터를 처리가능.
+                    // 무수하고 어마어마하게 많은 인터페이스이름을 몰라도
+                    // a라는 오브젝트이름으로 교체되어 의존성 제거됨!!!
+                    stream.filter(a -> a.length() == 1)
+                          .forEach(a -> System.out.println("I am Stream " + a));
+                }
+        );
+    }
+
+    public void runLambdaFunc(){
         LambdaFunc arg = calc();       // calc 가 호출되면 calc 함수에 정의된 람다식이 넘어온다.
         // arg : num -> num * num
         //int result = arg.square(50);
